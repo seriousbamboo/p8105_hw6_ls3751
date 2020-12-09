@@ -240,3 +240,22 @@ bootstrap_logbeta <-
   mutate(logbeta = log(intercept * tmin))
 ```
 
+### Plot the distibutions
+
+```{r}
+bootstrap_rsquared %>% 
+  ggplot(aes(x = r.squared)) +
+  geom_density() +
+  labs(
+    title = "The distribution of r squared",
+    y = "Density"
+  )
+bootstrap_logbeta %>% 
+  ggplot(aes(x = logbeta)) +
+  geom_density() +
+  labs(
+    title = " The distribution of log(beta0*beta1)",
+    y = "Density"
+  )
+```
+
