@@ -160,6 +160,8 @@ bw_dfm %>%
   stat_smooth(method = "lm")
 ```
 
+
+
 ### Cross Validation
 
 ```{r}
@@ -188,11 +190,13 @@ cv_df %>%
   ggplot(aes(x = model, y = rmse)) +
   geom_violin() +
   labs(
-    title = "Comparing RMSE value for Three Linear Models",
+    title = "Comparing RMSE values for Three Linear Models",
     x = "Model",
     y = "RMSE"
   ) 
 ```
+
+Based on the violin plot, model 1(my model) has the lowest level of prediction error probably due to the the large number of predictor variables. The best model is model 1 (babysex + bhead + blength + fincome + gaweeks + mheight + mrace + ppbmi + wtgain).
 
 ## Problem 3
 
@@ -259,7 +263,7 @@ bootstrap_logbeta %>%
   )
 ```
 
-It is noticeable that both estimators seems to be normally distributed.
+It is noticeable from the two distribution plots that both estimators are approximately normally distributed.
 
 ### 95% Confidence intervals and quantiles
 
