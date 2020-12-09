@@ -259,3 +259,20 @@ bootstrap_logbeta %>%
   )
 ```
 
+It is noticeable that both estimators seems to be normally distributed.
+
+### 95% Confidence intervals and quantiles
+
+```{r}
+bootstrap_rsquared %>% 
+  summarize(
+    CI_lower = quantile(r.squared, 0.025),
+    CI_upper = quantile(r.squared, 0.975)
+  )
+bootstrap_logbeta %>% 
+  summarize(
+    CI_lower = quantile(logbeta, 0.025),
+    CI_upper = quantile(logbeta, 0.975)
+  )
+```
+
