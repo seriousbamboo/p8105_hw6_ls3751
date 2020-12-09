@@ -104,7 +104,7 @@ models_results_df %>%
 
 ## Problem 2
 
-Load and clean the data for regression analysis
+### Load and clean the data for regression analysis
 
 ```{r, message = F}
 bw_df = read_csv("./data/birthweight.csv") %>% 
@@ -123,4 +123,27 @@ bw_df = bw_df %>%
 ```
 
 There is no missing value in the current dataset. Since data entries for two variables __pnumlbw__ and __pnumsga__ are zero, we choose to drop these variables.
+
+### Regression Model
+
+```{r}
+bw_dfm = bw_df %>% 
+  select(-parity, -malform, -smoken, -frace, -ppwt, -delwt)
+```
+
+
+Besides variables mentioned above, variables __parity__, __malform__, and __smoken__ are highly skewed, thus I choose to remove the three variables. Variables _ppwt__ and __delwt__ are also removed considering mother's weight at delivery minus mother's weight before pregnancy equals the Variable _wtgain__. Based on the hypothesis that father's race is not significantly associated with brith weight, the predictor variables used in my model are `r names(bw_dfm)`. 
+
+```{r}
+bw_model = lm(bwt ~ ., data = bw_dfm)
+summary(bw_model)
+bw_model %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value)
+```
+
+
+
+
+
 
