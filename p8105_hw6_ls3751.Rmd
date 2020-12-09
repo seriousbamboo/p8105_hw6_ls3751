@@ -24,7 +24,8 @@ scale_fill_discrete = scale_fill_viridis_d
 ```{r packages}
 library(tidyverse)
 library(modelr)
-library(p8105.datasets)
+library(skimr)
+set.seed(7)
 ```
 
 
@@ -103,22 +104,23 @@ models_results_df %>%
 
 ## Problem 2
 
-Find some residuals
+Load and clean the data for regression analysis
 
-```{r}
-baby_df = 
-  read_csv("./data/birthweight.csv")
+```{r, message = F}
+bw_df = read_csv("./data/birthweight.csv") %>% 
+  mutate(babysex = as.factor(babysex),
+         frace = as.factor(frace),
+         mrace = as.factor(mrace),
+         malform = as.factor(malform))
 ```
 
-fit a model
 
 ```{r}
-model_fit = lm(bwt ~ gaweeks, data = baby_df)
+bw_df %>% 
+  skim()
+bw_df = bw_df %>% 
+  select(-pnumlbw, -pnumsga)
 ```
 
-```{r}
-baby_df %>% 
-  modelr::add_residuals(model_fit) %>% 
-  ggplot(aes(x = gaweeks, y = resid)) + 
-  geom_point()
-```
+There is no missing value in the current dataset. Since data entries for two variables __pnumlbw__ and __pnumsga__ are zero, we choose to drop these variables.
+
